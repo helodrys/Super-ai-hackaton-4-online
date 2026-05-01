@@ -1490,6 +1490,95 @@ p {
   margin-top: 18px;
 }
 
+.taxi-place-search {
+  position: relative;
+}
+
+.taxi-search-input-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 0 14px;
+}
+
+.taxi-search-input-wrap:focus-within {
+  border-color: rgba(20, 184, 166, 0.45);
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.12);
+}
+
+.taxi-search-input-wrap svg {
+  color: var(--teal-deep);
+}
+
+.taxi-search-input-wrap input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding-inline: 0;
+  box-shadow: none;
+}
+
+.taxi-selected-place {
+  color: var(--teal-deep);
+  font-weight: 850;
+}
+
+.taxi-suggestion-menu {
+  position: absolute;
+  z-index: 12;
+  top: calc(100% - 7px);
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 6px;
+  max-height: 285px;
+  overflow-y: auto;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  border-radius: 22px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.16);
+}
+
+.taxi-suggestion-option {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  min-height: 54px;
+  border-radius: 16px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+}
+
+.taxi-suggestion-option:hover {
+  background: rgba(204, 251, 241, 0.64);
+}
+
+.taxi-suggestion-option span,
+.taxi-suggestion-option small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taxi-suggestion-option span {
+  font-weight: 950;
+}
+
+.taxi-suggestion-option small {
+  color: var(--muted-ink);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
 .route-option-list {
   display: grid;
   gap: 10px;
@@ -1740,6 +1829,10 @@ p {
   font-weight: 900;
 }
 
+.estimate-metrics span {
+  overflow-wrap: anywhere;
+}
+
 .meter-breakdown {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1764,6 +1857,13 @@ p {
 .meter-breakdown strong {
   margin-top: 6px;
   font-size: 1.1rem;
+}
+
+.taxi-estimate-note {
+  margin: 14px 0 0;
+  color: var(--teal-deep);
+  font-size: 0.92rem;
+  font-weight: 850;
 }
 
 .reroute-recommendation {
