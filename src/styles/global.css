@@ -1637,6 +1637,10 @@ p {
   min-height: 0;
 }
 
+.taxi-real-map-shell {
+  position: relative;
+}
+
 .taxi-city-map {
   position: relative;
   min-height: 680px;
