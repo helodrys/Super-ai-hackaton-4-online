@@ -236,64 +236,66 @@ export function TaxiCheckForm() {
         </div>
       </motion.section>
 
-      <section className="taxi-city-map-panel">
-        <div className="taxi-real-map-shell">
-          <div className="map-search-pill taxi-real-map-search">
-            <MapPin size={16} />
-            <span>{pickup || "Your location"} to {destination || "Destination"}</span>
+      <div className="taxi-output-column">
+        <section className="taxi-city-map-panel">
+          <div className="taxi-real-map-shell">
+            <div className="map-search-pill taxi-real-map-search">
+              <MapPin size={16} />
+              <span>{pickup || "Your location"} to {destination || "Destination"}</span>
+            </div>
+            <SafeFlowMapPanel pins={routeMapPins} selectedPin={routeMapPins[0]?.id} variant="bangkok" />
           </div>
-          <SafeFlowMapPanel pins={routeMapPins} selectedPin={routeMapPins[0]?.id} variant="bangkok" />
-        </div>
-      </section>
+        </section>
 
-      <section className="taxi-result price-estimate-card">
-        <div className="result-topline">
-          <div>
-            <span className="panel-label">Prediction output</span>
-            <h2>{hasEstimated ? `${pickup || "Pickup"} -> ${destination || "Destination"}` : "Add both locations"}</h2>
+        <section className="taxi-result price-estimate-card">
+          <div className="result-topline">
+            <div>
+              <span className="panel-label">Prediction output</span>
+              <h2>{hasEstimated ? `${pickup || "Pickup"} -> ${destination || "Destination"}` : "Add both locations"}</h2>
+            </div>
+            <div className="estimate-total">
+              <span>Total</span>
+              <strong>{hasEstimated ? `${selectedRoute.total} THB` : "--"}</strong>
+            </div>
           </div>
-          <div className="estimate-total">
-            <span>Total</span>
-            <strong>{hasEstimated ? `${selectedRoute.total} THB` : "--"}</strong>
-          </div>
-        </div>
 
-        <div className="estimate-metrics">
-          <div>
-            <Clock3 size={17} />
-            <span>{selectedRoute.duration}</span>
+          <div className="estimate-metrics">
+            <div>
+              <Clock3 size={17} />
+              <span>{selectedRoute.duration}</span>
+            </div>
+            <div>
+              <Route size={17} />
+              <span>{selectedRoute.distance}</span>
+            </div>
+            <div>
+              <WalletCards size={17} />
+              <span>Meter {selectedRoute.meterPrice} + fees {selectedRoute.fees}</span>
+            </div>
           </div>
-          <div>
-            <Route size={17} />
-            <span>{selectedRoute.distance}</span>
-          </div>
-          <div>
-            <WalletCards size={17} />
-            <span>Meter {selectedRoute.meterPrice} + fees {selectedRoute.fees}</span>
-          </div>
-        </div>
 
-        <div className="meter-breakdown">
-          <div>
-            <span>Predicted meter fare</span>
-            <strong>{selectedRoute.meterPrice} THB</strong>
+          <div className="meter-breakdown">
+            <div>
+              <span>Predicted meter fare</span>
+              <strong>{selectedRoute.meterPrice} THB</strong>
+            </div>
+            <div>
+              <span>Tolls / airport / transit fees</span>
+              <strong>{selectedRoute.fees} THB</strong>
+            </div>
           </div>
-          <div>
-            <span>Tolls / airport / transit fees</span>
-            <strong>{selectedRoute.fees} THB</strong>
-          </div>
-        </div>
 
-        <p className="taxi-estimate-note">{selectedRoute.id === "direct-meter" ? estimateSource : selectedRoute.comfort}</p>
+          <p className="taxi-estimate-note">{selectedRoute.id === "direct-meter" ? estimateSource : selectedRoute.comfort}</p>
 
-        <button type="button" className="reroute-recommendation" onClick={() => setSelectedRouteId("airport-rail")}>
-          <ShieldCheck size={21} />
-          <span>
-            <strong>Reroute recommendation</strong>
-            <small>{selectedRoute.id === "airport-rail" ? selectedRoute.comfort : "Try Airport Rail Link + short taxi to lower the estimated taxi cost."}</small>
-          </span>
-        </button>
-      </section>
+          <button type="button" className="reroute-recommendation" onClick={() => setSelectedRouteId("airport-rail")}>
+            <ShieldCheck size={21} />
+            <span>
+              <strong>Reroute recommendation</strong>
+              <small>{selectedRoute.id === "airport-rail" ? selectedRoute.comfort : "Try Airport Rail Link + short taxi to lower the estimated taxi cost."}</small>
+            </span>
+          </button>
+        </section>
+      </div>
     </div>
   );
 }
