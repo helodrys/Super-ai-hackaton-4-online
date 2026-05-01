@@ -1474,6 +1474,7 @@ p {
 }
 
 .taxi-estimator-layout {
+  --taxi-output-gap: 5px;
   display: grid;
   grid-template-columns: minmax(320px, 0.62fr) minmax(0, 1fr);
   column-gap: 20px;
@@ -1486,7 +1487,7 @@ p {
 
 .taxi-output-column {
   display: grid;
-  gap: 5px;
+  gap: var(--taxi-output-gap);
   min-width: 0;
 }
 
@@ -2599,8 +2600,8 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .taxi-output-column {
-    gap: 20px;
+  .taxi-estimator-layout {
+    --taxi-output-gap: 15px;
   }
 
   .taxi-layout {
