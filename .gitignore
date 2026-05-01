@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+coverage/
+
+# local env and secrets
+.env
+.env.*
+!.env.example
+
+# local caches
+.npm-cache/
+.vite/
+.cache/
+
+# logs
+*.log
+dev-server*.log
+dev-server*.err.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# scratch files
+/test.py
+*.tmp
+*.temp

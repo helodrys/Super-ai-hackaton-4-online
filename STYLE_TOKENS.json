@@ -1,0 +1,61 @@
+{
+  "brand": {
+    "name": "SafeFlow Thailand",
+    "personality": [
+      "premium",
+      "travel",
+      "warm",
+      "intelligent",
+      "colorful",
+      "trustworthy"
+    ]
+  },
+  "colors": {
+    "tealDeep": "#0F766E",
+    "tealBright": "#14B8A6",
+    "oceanBlue": "#0284C7",
+    "skyBlue": "#38BDF8",
+    "sunsetCoral": "#FB7185",
+    "sunsetOrange": "#F97316",
+    "gold": "#FACC15",
+    "leafGreen": "#22C55E",
+    "orchidPurple": "#A855F7",
+    "cream": "#FFF7ED",
+    "sand": "#FDE68A",
+    "ink": "#0F172A",
+    "mutedInk": "#475569"
+  },
+  "radii": {
+    "card": "1.5rem",
+    "button": "999px",
+    "panel": "2rem"
+  },
+  "shadow": {
+    "soft": "0 20px 60px rgba(15, 23, 42, 0.12)",
+    "glowTeal": "0 0 40px rgba(20, 184, 166, 0.28)",
+    "glowCoral": "0 0 40px rgba(251, 113, 133, 0.24)"
+  },
+  "risk": {
+    "low": {
+      "label": "Low",
+      "color": "#22C55E"
+    },
+    "medium": {
+      "label": "Medium",
+      "color": "#FACC15"
+    },
+    "high": {
+      "label": "High",
+      "color": "#FB7185"
+    },
+    "critical": {
+      "label": "Critical",
+      "color": "#DC2626"
+    }
+  },
+  "motion": {
+    "pageTransitionDuration": 0.45,
+    "staggerDelay": 0.08,
+    "hoverLift": "-6px"
+  }
+}
