@@ -3,6 +3,7 @@ node_modules/
 
 # build output
 dist/
+server-dist/
 coverage/
 
 # local env and secrets

@@ -450,6 +450,12 @@ p {
   font-size: 1.05rem;
 }
 
+.weather-hero-card h1 {
+  max-width: 820px;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
 .hero-actions,
 .route-stat-row,
 .fare-compare,
