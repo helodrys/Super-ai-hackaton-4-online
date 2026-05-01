@@ -1479,7 +1479,8 @@ p {
   grid-template-areas:
     "form map"
     "form result";
-  gap: 20px;
+  column-gap: 20px;
+  row-gap: 12px;
   align-items: start;
 }
 
@@ -1632,7 +1633,7 @@ p {
 
 .taxi-city-map-panel {
   grid-area: map;
-  min-height: 560px;
+  min-height: 0;
 }
 
 .taxi-city-map {
