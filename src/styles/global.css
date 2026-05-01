@@ -2550,7 +2550,10 @@ textarea {
   }
 
   .weather-orbit {
+    justify-self: center;
+    width: min(240px, 100%);
     max-width: 240px;
+    margin-inline: auto;
   }
 
   .option-grid,
