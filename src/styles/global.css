@@ -1440,6 +1440,59 @@ p {
   font-weight: 900;
 }
 
+.empty-route-map,
+.travel-plan-empty,
+.empty-itinerary-page {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: var(--shadow-soft);
+}
+
+.empty-route-map {
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  border-radius: 34px;
+  padding: 26px;
+  text-align: center;
+}
+
+.empty-route-map svg {
+  color: var(--teal-deep);
+}
+
+.empty-route-map strong,
+.travel-plan-empty strong {
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.empty-route-map p,
+.travel-plan-empty p,
+.empty-itinerary-page p {
+  max-width: 520px;
+  margin: 8px 0 16px;
+}
+
+.travel-plan-empty {
+  border-radius: 24px;
+  padding: 18px;
+}
+
+.empty-itinerary-page {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  max-width: 760px;
+  border-radius: 38px;
+  padding: clamp(28px, 5vw, 54px);
+}
+
+.empty-itinerary-page h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+}
+
 .chip-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -1474,7 +1527,7 @@ p {
 }
 
 .taxi-estimator-layout {
-  --taxi-output-gap: 5px;
+  --taxi-output-gap: 22px;
   display: grid;
   grid-template-columns: minmax(320px, 0.62fr) minmax(0, 1fr);
   column-gap: 20px;
@@ -2605,7 +2658,7 @@ textarea {
   }
 
   .taxi-estimator-layout {
-    --taxi-output-gap: 15px;
+    --taxi-output-gap: 22px;
   }
 
   .taxi-layout {
