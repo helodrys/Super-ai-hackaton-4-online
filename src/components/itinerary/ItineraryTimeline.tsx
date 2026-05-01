@@ -26,8 +26,10 @@ export function ItineraryTimeline({ plan, onPreviewAlternative }: ItineraryTimel
                 aria-expanded={expanded}
                 onClick={() => toggleStop(stop.placeId)}
               >
-                <span>{stop.time} - {stop.type} - {stop.score}/100 fit</span>
-                <h3>{index + 1}. {stop.name}</h3>
+                <div>
+                  <span>{stop.time} - {stop.type} - {stop.score}/100 fit</span>
+                  <h3>{index + 1}. {stop.name}</h3>
+                </div>
                 <ChevronDown size={18} />
               </button>
               <p>{stop.reason}</p>

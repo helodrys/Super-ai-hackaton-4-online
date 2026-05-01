@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import maplibregl, { type GeoJSONSource, type LngLatBoundsLike, type Map, type Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MapPinned, ShieldAlert, Wind } from "lucide-react";
+import { ChevronUp, MapPinned, ShieldAlert, Wind } from "lucide-react";
 import type { Coordinates, MapPin, RouteLeg, RouteStop } from "../types";
 
 type SafeFlowMapPanelProps = {
@@ -23,6 +23,7 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
   const [activePinId, setActivePinId] = useState(selectedPin ?? pins[0]?.id);
   const [mapReady, setMapReady] = useState(false);
   const [sheetExpanded, setSheetExpanded] = useState(false);
+  const [trayCollapsed, setTrayCollapsed] = useState(true);
   const routeCoordinates = useMemo(() => pins.map((pin) => pin.coordinates ?? projectPin(pin)).filter(Boolean), [pins]);
   const routeKey = useMemo(() => routeCoordinates.map((point) => `${point.lat.toFixed(5)},${point.lng.toFixed(5)}`).join("|"), [routeCoordinates]);
   const [streetRouteCoordinates, setStreetRouteCoordinates] = useState<Coordinates[]>(routeCoordinates);
@@ -144,6 +145,7 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
       element.addEventListener("mouseenter", () => setActivePinId(pin.id));
       element.addEventListener("click", () => {
         setActivePinId(pin.id);
+        setTrayCollapsed(false);
         setSheetExpanded(true);
         map.easeTo({ center: [coordinates.lng, coordinates.lat], zoom: Math.max(map.getZoom(), 12.8), duration: 650 });
       });
@@ -161,9 +163,20 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
     >
       <div ref={containerRef} className="safeflow-map-canvas" />
       <div className="map-badge safeflow-map-badge"><MapPinned size={16} /> {routeSourceLabel}</div>
-      <div className="safeflow-map-warning"><Wind size={15} /> PM2.5 watch</div>
-      <div className="safeflow-map-reroute"><ShieldAlert size={15} /> Indoor fallback ready</div>
-      <div className={`safeflow-map-tray ${sheetExpanded ? "safeflow-map-tray-expanded" : ""}`} aria-live="polite">
+      <div className="safeflow-map-status-stack">
+        <button
+          type="button"
+          className="safeflow-map-collapse-toggle"
+          aria-expanded={!trayCollapsed}
+          onClick={() => setTrayCollapsed((collapsed) => !collapsed)}
+        >
+          <ChevronUp size={16} />
+          {trayCollapsed ? "Show route details" : "Hide route details"}
+        </button>
+        <div className="safeflow-map-warning"><Wind size={15} /> PM2.5 watch</div>
+        <div className="safeflow-map-reroute"><ShieldAlert size={15} /> Indoor fallback ready</div>
+      </div>
+      <div className={`safeflow-map-tray ${sheetExpanded ? "safeflow-map-tray-expanded" : ""} ${trayCollapsed ? "safeflow-map-tray-collapsed" : ""}`} aria-live="polite">
         <button
           type="button"
           className="safeflow-sheet-handle"
@@ -203,6 +216,7 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
               className={activePinId === pin.id ? "safeflow-stop-chip safeflow-stop-chip-active" : "safeflow-stop-chip"}
               onMouseEnter={() => setActivePinId(pin.id)}
               onClick={() => {
+                setTrayCollapsed(false);
                 setSheetExpanded(true);
                 focusPin(pin);
               }}
@@ -220,6 +234,7 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
     const map = mapRef.current;
     const coordinates = pin.coordinates ?? projectPin(pin);
     setActivePinId(pin.id);
+    setTrayCollapsed(false);
     map?.easeTo({ center: [coordinates.lng, coordinates.lat], zoom: Math.max(map.getZoom(), 12.8), duration: 650 });
   }
 }
