@@ -1476,11 +1476,15 @@ p {
 .taxi-estimator-layout {
   display: grid;
   grid-template-columns: minmax(320px, 0.62fr) minmax(0, 1fr);
+  grid-template-areas:
+    "form map"
+    "form result";
   gap: 20px;
   align-items: start;
 }
 
 .taxi-route-panel {
+  grid-area: form;
   min-height: auto;
 }
 
@@ -1627,8 +1631,8 @@ p {
 }
 
 .taxi-city-map-panel {
-  grid-row: span 2;
-  min-height: 680px;
+  grid-area: map;
+  min-height: 560px;
 }
 
 .taxi-city-map {
@@ -1778,6 +1782,7 @@ p {
 }
 
 .price-estimate-card {
+  grid-area: result;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(236, 253, 245, 0.82));
 }
 
@@ -2592,6 +2597,13 @@ textarea {
   .planner-layout,
   .itinerary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .taxi-estimator-layout {
+    grid-template-areas:
+      "form"
+      "map"
+      "result";
   }
 
   .taxi-layout {
