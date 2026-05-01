@@ -17,7 +17,7 @@ npm run dev
 
 Open the local URL printed by Vite.
 
-## Production Build
+## Build And Run
 
 ```bash
 npm run build
@@ -31,11 +31,9 @@ npm start
 
 `npm start` serves the frontend and the required API routes from one Node process.
 
-## Required Deployment Settings
+## Deploy
 
-Use a Node-capable host such as Render, Railway, Fly.io, or a VPS.
-
-Recommended settings:
+Use these settings on Render, Railway, Fly.io, or any Node host:
 
 ```txt
 Build command: npm ci && npm run build
@@ -53,11 +51,9 @@ SAFEFLOW_ENABLE_LIVE_OPEN_METEO=false
 SAFEFLOW_DISABLE_OSRM=false
 ```
 
-Do not commit `.env`. Add secrets only in your deployment provider dashboard.
-
 ## API Routes
 
-The production server supports:
+The server supports:
 
 - `POST /api/plan-trip`
 - `POST /api/routes/compute`
@@ -65,5 +61,3 @@ The production server supports:
 - `POST /api/places/search`
 - `POST /api/places/details`
 - `GET /api/environment`
-
-GitHub Pages alone is not enough for full functionality because the app needs these backend routes.
