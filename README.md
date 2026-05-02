@@ -31,7 +31,7 @@ npm start
 
 `npm start` serves the frontend and the required API routes from one Node process.
 
-## Deploy
+## Deployment
 
 Use these settings on Render, Railway, Fly.io, or any Node host:
 
@@ -55,9 +55,15 @@ THAITAI_DISABLE_OSRM=false
 
 The server supports:
 
-- `POST /api/plan-trip`
-- `POST /api/routes/compute`
-- `POST /api/routes/matrix`
-- `POST /api/places/search`
-- `POST /api/places/details`
-- `GET /api/environment`
+## API Routes
+
+- `POST /api/plan-trip` — Generates a personalized itinerary.
+- `POST /api/routes/compute` — Computes route distance, duration, and map path.
+- `POST /api/routes/matrix` — Calculates travel times between multiple places.
+- `POST /api/places/search` — Searches for attractions or destinations.
+- `POST /api/places/details` — Gets detailed information for a selected place.
+- `GET /api/environment` — Returns enabled feature flags for the frontend.
+
+website: https://thaitai.onrender.com/
+
+
