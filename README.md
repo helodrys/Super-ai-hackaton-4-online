@@ -1,4 +1,4 @@
-# SafeFlow Thailand
+# TaiThai
 
 SafeFlow Thailand is a React/Vite travel assistant prototype for Bangkok. It includes:
 
