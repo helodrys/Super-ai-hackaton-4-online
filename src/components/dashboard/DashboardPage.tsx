@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { CarTaxiFront, CloudRain, Gauge, Map, MapPin, Route, Sparkles, ThermometerSun, Wind } from "lucide-react";
-import { cityConditions } from "../../data/weather";
+import { CarTaxiFront, CloudRain, Map, MapPin, Route, Sparkles, ThermometerSun, Wind } from "lucide-react";
 import { pageTransition, staggerContainer } from "../../lib/motion";
 import { createMapPinsFromTripPlan } from "../../lib/plannerEngine";
-import { useTripConditions } from "../../lib/tripConditions";
+import { useLocalTripConditions, useTripConditions } from "../../lib/tripConditions";
 import type { PageKey, RouteStop, TripPlan } from "../../types";
 import { ThaiTAIMapPanel } from "../ThaiTAIMapPanel";
 import { TripConditionsMini } from "../trip/TripConditionsMini";
@@ -17,7 +16,7 @@ type DashboardPageProps = {
 };
 
 export function DashboardPage({ onNavigate, latestTripPlan }: DashboardPageProps) {
-  const city = cityConditions[0];
+  const dashboardConditions = useLocalTripConditions();
   const pins = latestTripPlan ? createMapPinsFromTripPlan(latestTripPlan) : [];
 
   return (
@@ -50,10 +49,10 @@ export function DashboardPage({ onNavigate, latestTripPlan }: DashboardPageProps
         </section>
 
         <motion.div className="metric-grid" variants={staggerContainer} initial="hidden" animate="show">
-          <ConditionMetricCard label="Feels Like" value={`${city.feelsLike} C`} status="Hot afternoon" trend="Indoor first" icon={ThermometerSun} />
-          <ConditionMetricCard label="PM2.5" value={city.airQuality} status={`${city.pm25} AQ signal`} trend="Moderate" icon={Wind} />
-          <ConditionMetricCard label="Travel Comfort" value={`${city.comfortScore}/100`} status="Smooth with timing" trend="+8 if indoors" icon={Gauge} />
-          <ConditionMetricCard label="Rain Risk" value={city.rainRisk} status="Low disruption" trend="Carry shade" icon={CloudRain} />
+          <ConditionMetricCard label="Temperature" value={`${dashboardConditions.temperature}°C`} status={`${dashboardConditions.conditionEmoji} ${dashboardConditions.condition}`} trend={`Feels like ${dashboardConditions.feelsLike}°C`} icon={ThermometerSun} />
+          <ConditionMetricCard label="PM2.5" value={`${dashboardConditions.pm25}`} status={`${dashboardConditions.airQuality} · AQI ${dashboardConditions.aqi}`} trend={dashboardConditions.aqiLabel} icon={Wind} />
+          <ConditionMetricCard label="Weather" value={dashboardConditions.condition} status={`${dashboardConditions.conditionEmoji} Live condition`} trend={dashboardConditions.locationLabel} emoji={dashboardConditions.conditionEmoji} />
+          <ConditionMetricCard label="Wind / Rain" value={`${dashboardConditions.windSpeed} km/h`} status={`${dashboardConditions.rainChance}% rain chance`} trend="Live weather signal" icon={CloudRain} />
         </motion.div>
       </div>
 

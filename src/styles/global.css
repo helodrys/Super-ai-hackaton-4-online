@@ -530,6 +530,11 @@ p {
   margin-bottom: 18px;
 }
 
+.metric-emoji {
+  font-size: 1.28rem;
+  line-height: 1;
+}
+
 .metric-card span,
 .metric-card p,
 .metric-card small {

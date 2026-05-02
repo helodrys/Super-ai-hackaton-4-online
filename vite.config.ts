@@ -430,7 +430,7 @@ async function getOpenMeteoEnvironment(lat: string | null, lng: string | null) {
 
   try {
     const [forecastResponse, airResponse] = await Promise.all([
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&hourly=precipitation_probability&forecast_days=1&timezone=auto`),
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&hourly=precipitation_probability&forecast_days=1&timezone=auto`),
       fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=us_aqi,pm2_5`)
     ]);
 
@@ -441,21 +441,27 @@ async function getOpenMeteoEnvironment(lat: string | null, lng: string | null) {
     const forecast = await forecastResponse.json();
     const air = await airResponse.json();
     const temperatureC = Math.round(Number(forecast.current?.temperature_2m ?? 33));
+    const feelsLikeC = Math.round(Number(forecast.current?.apparent_temperature ?? temperatureC));
     const precipitationProbability = nearestHourlyValue(forecast.hourly?.time, forecast.hourly?.precipitation_probability, 24);
     const weatherCode = Math.round(Number(forecast.current?.weather_code ?? 2));
+    const condition = conditionForWeatherCode(weatherCode);
     const pm25 = Math.round(Number(air.current?.pm2_5 ?? 30));
     const aqi = Math.round(Number(air.current?.us_aqi ?? pm25));
+    const windSpeedKph = Math.round(Number(forecast.current?.wind_speed_10m ?? 8));
 
     return {
       lat: latitude,
       lng: longitude,
       temperatureC,
+      feelsLikeC,
       precipitationProbability,
       aqi,
       aqiLabel: labelForAqi(aqi),
       pm25,
       airQuality: pm25 <= 25 ? "Good" : pm25 <= 37 ? "Moderate" : "Unhealthy",
-      condition: conditionForWeatherCode(weatherCode),
+      condition,
+      conditionEmoji: emojiForCondition(condition),
+      windSpeedKph,
       weatherRisk: pm25 > 35 || precipitationProbability > 45 ? "High" : pm25 > 25 || precipitationProbability > 30 ? "Medium" : "Low",
       source: "open-meteo"
     };
@@ -487,10 +493,10 @@ function nearestHourlyValue(times: unknown, values: unknown, fallback: number) {
 }
 
 function labelForAqi(aqi: number) {
-  if (aqi <= 50) return "ดี";
-  if (aqi <= 100) return "ปานกลาง";
-  if (aqi <= 150) return "เริ่มมีผล";
-  return "ไม่ดี";
+  if (aqi <= 50) return "\u0e14\u0e35";
+  if (aqi <= 100) return "\u0e1b\u0e32\u0e19\u0e01\u0e25\u0e32\u0e07";
+  if (aqi <= 150) return "\u0e40\u0e23\u0e34\u0e48\u0e21\u0e21\u0e35\u0e1c\u0e25";
+  return "\u0e44\u0e21\u0e48\u0e14\u0e35";
 }
 
 function conditionForWeatherCode(code: number) {
@@ -501,6 +507,16 @@ function conditionForWeatherCode(code: number) {
   if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "Rain nearby";
   if ([95, 96, 99].includes(code)) return "Thunderstorm";
   return "Partly cloudy";
+}
+
+function emojiForCondition(condition: string) {
+  const normalized = condition.toLowerCase();
+  if (normalized.includes("clear") || normalized.includes("sun")) return "☀️";
+  if (normalized.includes("cloud")) return "⛅";
+  if (normalized.includes("rain") || normalized.includes("drizzle")) return "🌧️";
+  if (normalized.includes("thunder")) return "⛈️";
+  if (normalized.includes("hazy") || normalized.includes("fog")) return "🌫️";
+  return "🌤️";
 }
 
 function parseWaypoints(body: Record<string, unknown>) {
