@@ -8,6 +8,11 @@ ThaiTAI is a React/Vite travel assistant prototype for Bangkok. It includes:
 - MapLibre route display
 - Optional Typhoon-powered itinerary generation with deterministic local fallback
 
+## Tech Stack
+
+- Frontend: React, TypeScript, Vite, MapLibre GL
+- Backend: Node.js TypeScript server with API routes for planning, routing, places, and environment data
+
 ## Local Development
 
 ```bash
@@ -55,15 +60,19 @@ THAITAI_DISABLE_OSRM=false
 
 The server supports:
 
-## API Routes
+- `POST /api/plan-trip`
+- `POST /api/routes/compute`
+- `POST /api/routes/matrix`
+- `POST /api/places/search`
+- `POST /api/places/details`
+- `GET /api/environment`
 
-- `POST /api/plan-trip` — Generates a personalized itinerary.
-- `POST /api/routes/compute` — Computes route distance, duration, and map path.
-- `POST /api/routes/matrix` — Calculates travel times between multiple places.
-- `POST /api/places/search` — Searches for attractions or destinations.
-- `POST /api/places/details` — Gets detailed information for a selected place.
-- `GET /api/environment` — Returns enabled feature flags for the frontend.
+## Live Demo
 
-website: https://thaitai.onrender.com/
+Try the deployed version here:
 
+[https://thaitai.onrender.com/](https://thaitai.onrender.com/)
 
+Or scan the QR code:
+
+<img src="qrcode.png" alt="ThaiTAI Demo QR Code" width="220" />
