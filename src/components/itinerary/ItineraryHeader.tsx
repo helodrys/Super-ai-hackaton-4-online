@@ -1,4 +1,4 @@
-import { CalendarClock, MapPinned, WalletCards } from "lucide-react";
+import { CalendarClock, MapPinned } from "lucide-react";
 import type { TripPlan } from "../../types";
 
 type ItineraryHeaderProps = {
@@ -18,7 +18,6 @@ export function ItineraryHeader({ plan }: ItineraryHeaderProps) {
       </div>
       <div className="route-stat-row">
         <span><CalendarClock size={17} /> {plan.duration}</span>
-        <span><WalletCards size={17} /> {plan.estimatedBudget.toLocaleString()} THB</span>
         <span>{plan.walkingLoad} walking</span>
       </div>
     </section>

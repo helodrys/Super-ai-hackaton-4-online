@@ -28,7 +28,7 @@ export function AlternativeRouteTabs({ plan, onPreviewAlternative }: Alternative
           >
             <span>{suggestion.trigger}</span>
             <strong>{suggestion.title}</strong>
-            <em>{suggestion.score}/100 fit</em>
+            <em>{suggestion.candidateType}</em>
           </button>
         ))}
       </div>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { pageTransition } from "../../lib/motion";
 import { createMapPinsFromTripPlan } from "../../lib/plannerEngine";
 import type { Coordinates, PageKey, TripPlan } from "../../types";
-import { SafeFlowMapPanel } from "../SafeFlowMapPanel";
+import { ThaiTAIMapPanel } from "../ThaiTAIMapPanel";
 import { AIExplanationPanel } from "./AIExplanationPanel";
 import { ItineraryHeader } from "./ItineraryHeader";
 import { ItineraryTimeline } from "./ItineraryTimeline";
@@ -22,7 +22,7 @@ export function ItineraryPage({ onNavigate, tripPlan }: ItineraryPageProps) {
         <section className="empty-itinerary-page">
           <span className="panel-label">My route</span>
           <h1>No trip plan yet</h1>
-          <p>Create a route from the planner first. SafeFlow keeps one generated trip in the current browser session, then shows it here.</p>
+          <p>Create a route from the planner first. ThaiTAI keeps one generated trip in the current browser session, then shows it here.</p>
           <button className="primary-pill" onClick={() => onNavigate("planner")}>Plan a trip</button>
         </section>
       </motion.div>
@@ -36,7 +36,7 @@ export function ItineraryPage({ onNavigate, tripPlan }: ItineraryPageProps) {
       <ItineraryHeader plan={tripPlan} />
       <div className="itinerary-grid">
         <div className="itinerary-main">
-          <SafeFlowMapPanel pins={pins} selectedPin={pins[0]?.id} variant="bangkok" previewCoordinates={previewCoordinates} stops={tripPlan.stops} />
+          <ThaiTAIMapPanel pins={pins} selectedPin={pins[0]?.id} variant="bangkok" previewCoordinates={previewCoordinates} stops={tripPlan.stops} />
           <ItineraryTimeline plan={tripPlan} onPreviewAlternative={setPreviewCoordinates} />
         </div>
         <aside className="itinerary-side">

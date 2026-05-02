@@ -850,7 +850,7 @@ p {
   animation: pinPulse 1.65s infinite;
 }
 
-.safeflow-map {
+.taithai-map {
   position: relative;
   min-height: 440px;
   overflow: hidden;
@@ -860,24 +860,24 @@ p {
   box-shadow: var(--shadow-soft);
 }
 
-.safeflow-map-compact {
+.taithai-map-compact {
   min-height: 360px;
 }
 
-.safeflow-map-bangkok {
+.taithai-map-bangkok {
   min-height: 520px;
 }
 
-.safeflow-map-canvas {
+.taithai-map-canvas {
   position: absolute;
   inset: 0;
 }
 
-.safeflow-map .maplibregl-canvas {
+.taithai-map .maplibregl-canvas {
   outline: none;
 }
 
-.safeflow-map .maplibregl-ctrl-group {
+.taithai-map .maplibregl-ctrl-group {
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -885,9 +885,9 @@ p {
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.13);
 }
 
-.safeflow-map-badge,
-.safeflow-map-warning,
-.safeflow-map-reroute {
+.taithai-map-badge,
+.taithai-map-warning,
+.taithai-map-reroute {
   z-index: 3;
   color: var(--ink);
   background: rgba(255, 255, 255, 0.88);
@@ -895,8 +895,8 @@ p {
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.13);
 }
 
-.safeflow-map-warning,
-.safeflow-map-reroute {
+.taithai-map-warning,
+.taithai-map-reroute {
   position: absolute;
   display: inline-flex;
   align-items: center;
@@ -907,21 +907,21 @@ p {
   font-weight: 900;
 }
 
-.safeflow-map-warning {
+.taithai-map-warning {
   top: 20px;
   right: 20px;
   color: #854d0e;
   background: rgba(254, 243, 199, 0.92);
 }
 
-.safeflow-map-reroute {
+.taithai-map-reroute {
   top: 68px;
   right: 20px;
   color: var(--teal-deep);
   background: rgba(204, 251, 241, 0.9);
 }
 
-.safeflow-map-marker {
+.taithai-map-marker {
   display: grid;
   place-items: center;
   width: 38px;
@@ -935,7 +935,7 @@ p {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.safeflow-map-marker span {
+.taithai-map-marker span {
   display: grid;
   place-items: center;
   width: 25px;
@@ -948,33 +948,33 @@ p {
   transform: rotate(45deg);
 }
 
-.safeflow-map-marker:hover,
-.safeflow-map-marker-active {
+.taithai-map-marker:hover,
+.taithai-map-marker-active {
   transform: rotate(-45deg) scale(1.12);
   box-shadow: 0 0 0 10px rgba(250, 204, 21, 0.25), 0 18px 38px rgba(15, 23, 42, 0.28);
 }
 
-.safeflow-map-marker-risk {
+.taithai-map-marker-risk {
   background: var(--sunset-coral);
 }
 
-.safeflow-map-marker-recommended {
+.taithai-map-marker-recommended {
   background: var(--leaf-green);
 }
 
-.safeflow-map-marker-local {
+.taithai-map-marker-local {
   background: var(--ocean-blue);
 }
 
-.safeflow-map-marker-food {
+.taithai-map-marker-food {
   background: var(--sunset-orange);
 }
 
-.safeflow-map-marker-culture {
+.taithai-map-marker-culture {
   background: var(--orchid-purple);
 }
 
-.safeflow-stop-card {
+.taithai-stop-card {
   position: absolute;
   z-index: 3;
   left: 20px;
@@ -990,26 +990,26 @@ p {
   backdrop-filter: blur(12px);
 }
 
-.safeflow-stop-card span {
+.taithai-stop-card span {
   color: var(--teal-deep);
   font-size: 0.75rem;
   font-weight: 950;
   text-transform: uppercase;
 }
 
-.safeflow-stop-card strong {
+.taithai-stop-card strong {
   display: block;
   margin-top: 5px;
   font-size: 1rem;
 }
 
-.safeflow-stop-card p {
+.taithai-stop-card p {
   margin-top: 5px;
   font-size: 0.86rem;
   line-height: 1.4;
 }
 
-.safeflow-stop-strip {
+.taithai-stop-strip {
   position: absolute;
   z-index: 3;
   left: 20px;
@@ -1021,7 +1021,7 @@ p {
   padding-bottom: 3px;
 }
 
-.safeflow-stop-chip {
+.taithai-stop-chip {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -1035,7 +1035,7 @@ p {
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
 }
 
-.safeflow-stop-chip span {
+.taithai-stop-chip span {
   display: grid;
   place-items: center;
   width: 30px;
@@ -1047,7 +1047,7 @@ p {
   font-weight: 950;
 }
 
-.safeflow-stop-chip em {
+.taithai-stop-chip em {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1056,11 +1056,11 @@ p {
   font-weight: 900;
 }
 
-.safeflow-stop-chip-active {
+.taithai-stop-chip-active {
   background: rgba(254, 243, 199, 0.94);
 }
 
-.safeflow-map-marker {
+.taithai-map-marker {
   width: 46px;
   height: 46px;
   border: 0;
@@ -1071,7 +1071,7 @@ p {
   transform: rotate(-45deg);
 }
 
-.safeflow-map-marker::after {
+.taithai-map-marker::after {
   content: "";
   position: absolute;
   inset: 6px;
@@ -1080,7 +1080,7 @@ p {
   background: color-mix(in srgb, var(--leaf-green) 18%, white);
 }
 
-.safeflow-map-marker .safeflow-map-marker-icon {
+.taithai-map-marker .taithai-map-marker-icon {
   width: auto;
   height: auto;
   border-radius: 0;
@@ -1091,7 +1091,7 @@ p {
   transform: rotate(45deg);
 }
 
-.safeflow-map-marker-order {
+.taithai-map-marker-order {
   position: absolute;
   right: -7px;
   top: -7px;
@@ -1108,33 +1108,33 @@ p {
   transform: rotate(45deg);
 }
 
-.safeflow-map-marker:hover,
-.safeflow-map-marker-active {
+.taithai-map-marker:hover,
+.taithai-map-marker-active {
   transform: rotate(-45deg) scale(1.1);
   box-shadow: 0 0 0 8px rgba(250, 204, 21, 0.22), 0 18px 38px rgba(15, 23, 42, 0.28);
 }
 
-.safeflow-map-marker-risk::after {
+.taithai-map-marker-risk::after {
   background: color-mix(in srgb, var(--sunset-coral) 20%, white);
 }
 
-.safeflow-map-marker-recommended::after {
+.taithai-map-marker-recommended::after {
   background: color-mix(in srgb, var(--leaf-green) 18%, white);
 }
 
-.safeflow-map-marker-local::after {
+.taithai-map-marker-local::after {
   background: color-mix(in srgb, var(--ocean-blue) 18%, white);
 }
 
-.safeflow-map-marker-food::after {
+.taithai-map-marker-food::after {
   background: color-mix(in srgb, var(--sunset-orange) 20%, white);
 }
 
-.safeflow-map-marker-culture::after {
+.taithai-map-marker-culture::after {
   background: color-mix(in srgb, var(--orchid-purple) 18%, white);
 }
 
-.safeflow-map-tray {
+.taithai-map-tray {
   position: absolute;
   z-index: 4;
   left: 16px;
@@ -1147,11 +1147,11 @@ p {
   pointer-events: none;
 }
 
-.safeflow-map-tray.safeflow-map-tray-collapsed {
+.taithai-map-tray.taithai-map-tray-collapsed {
   display: none;
 }
 
-.safeflow-map-status-stack {
+.taithai-map-status-stack {
   position: absolute;
   z-index: 5;
   top: 20px;
@@ -1162,7 +1162,7 @@ p {
   max-width: min(280px, calc(100% - 40px));
 }
 
-.safeflow-map-collapse-toggle {
+.taithai-map-collapse-toggle {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1176,27 +1176,27 @@ p {
   font-weight: 950;
 }
 
-.safeflow-map-collapse-toggle svg {
+.taithai-map-collapse-toggle svg {
   transition: transform 180ms ease;
 }
 
-.safeflow-map-collapse-toggle[aria-expanded="false"] svg {
+.taithai-map-collapse-toggle[aria-expanded="false"] svg {
   transform: rotate(180deg);
 }
 
-.safeflow-map-status-stack .safeflow-map-warning,
-.safeflow-map-status-stack .safeflow-map-reroute {
+.taithai-map-status-stack .taithai-map-warning,
+.taithai-map-status-stack .taithai-map-reroute {
   position: static;
   top: auto;
   right: auto;
   max-width: 100%;
 }
 
-.safeflow-sheet-handle {
+.taithai-sheet-handle {
   display: none;
 }
 
-.safeflow-route-summary {
+.taithai-route-summary {
   grid-column: 1 / -1;
   justify-self: start;
   display: inline-flex;
@@ -1210,19 +1210,19 @@ p {
   pointer-events: auto;
 }
 
-.safeflow-route-summary span,
-.safeflow-route-summary em {
+.taithai-route-summary span,
+.taithai-route-summary em {
   color: var(--muted-ink);
   font-size: 0.76rem;
   font-style: normal;
   font-weight: 900;
 }
 
-.safeflow-route-summary strong {
+.taithai-route-summary strong {
   font-size: 0.82rem;
 }
 
-.safeflow-map-tray .safeflow-stop-card {
+.taithai-map-tray .taithai-stop-card {
   position: static;
   left: auto;
   right: auto;
@@ -1232,14 +1232,14 @@ p {
   pointer-events: auto;
 }
 
-.safeflow-stop-card-topline {
+.taithai-stop-card-topline {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
   gap: 11px;
   align-items: center;
 }
 
-.safeflow-stop-card-icon {
+.taithai-stop-card-icon {
   display: grid;
   place-items: center;
   width: 42px;
@@ -1249,14 +1249,14 @@ p {
   font-size: 1.28rem;
 }
 
-.safeflow-stop-card-tags {
+.taithai-stop-card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 10px;
 }
 
-.safeflow-stop-card-tags em {
+.taithai-stop-card-tags em {
   border-radius: 999px;
   padding: 5px 8px;
   color: var(--teal-deep);
@@ -1266,7 +1266,7 @@ p {
   font-weight: 900;
 }
 
-.safeflow-map-tray .safeflow-stop-strip {
+.taithai-map-tray .taithai-stop-strip {
   position: static;
   left: auto;
   right: auto;
@@ -1277,36 +1277,36 @@ p {
   pointer-events: auto;
 }
 
-.safeflow-map-tray .safeflow-stop-chip {
+.taithai-map-tray .taithai-stop-chip {
   max-width: 190px;
   min-height: 44px;
   backdrop-filter: blur(12px);
 }
 
-.safeflow-map-tray .safeflow-stop-chip span {
+.taithai-map-tray .taithai-stop-chip span {
   color: var(--ink);
   background: rgba(20, 184, 166, 0.12);
   font-size: 1rem;
 }
 
-.safeflow-route-rail {
+.taithai-route-rail {
   display: grid;
   gap: 7px;
   margin-top: 12px;
 }
 
-.safeflow-route-rail-stop,
-.safeflow-route-rail-next,
-.safeflow-route-rail-leg {
+.taithai-route-rail-stop,
+.taithai-route-rail-next,
+.taithai-route-rail-leg {
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr);
   gap: 9px;
   align-items: start;
 }
 
-.safeflow-route-rail-stop > span,
-.safeflow-route-rail-next > span,
-.safeflow-route-rail-leg > span {
+.taithai-route-rail-stop > span,
+.taithai-route-rail-next > span,
+.taithai-route-rail-leg > span {
   display: grid;
   place-items: center;
   min-height: 28px;
@@ -1317,16 +1317,16 @@ p {
   font-weight: 950;
 }
 
-.safeflow-route-rail-leg > span {
+.taithai-route-rail-leg > span {
   color: var(--teal-deep);
   background: rgba(204, 251, 241, 0.78);
 }
 
-.safeflow-route-rail strong {
+.taithai-route-rail strong {
   font-size: 0.84rem;
 }
 
-.safeflow-route-rail p {
+.taithai-route-rail p {
   margin: 2px 0 0;
   color: var(--muted-ink);
   font-size: 0.78rem;
@@ -1444,6 +1444,144 @@ p {
   font-size: 0.76rem;
   font-style: normal;
   font-weight: 900;
+}
+
+.travel-plan-stop-body {
+  min-width: 0;
+}
+
+.trip-conditions-mini {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  margin-left: auto;
+}
+
+.condition-card {
+  min-width: 76px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: start;
+  align-items: center;
+  gap: 4px 6px;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  border-radius: 20px;
+  padding: 9px 10px;
+  background: rgba(255, 252, 247, 0.88);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.condition-card svg {
+  color: var(--teal-deep);
+}
+
+.condition-card-aqi {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(220, 252, 231, 0.82));
+}
+
+.condition-card-aqi svg {
+  color: var(--leaf-green);
+}
+
+.condition-card-temperature {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 237, 213, 0.82));
+}
+
+.condition-card-temperature svg {
+  color: var(--sunset-orange);
+}
+
+.condition-card-rain {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(224, 242, 254, 0.86));
+}
+
+.condition-card-rain svg {
+  color: var(--ocean-blue);
+}
+
+.trip-conditions-mini .condition-label,
+.trip-conditions-mini .condition-value,
+.trip-conditions-mini .aqi-pill,
+.trip-conditions-mini .condition-card small {
+  min-width: 0;
+}
+
+.trip-conditions-mini .condition-label {
+  display: block;
+  color: var(--muted-ink);
+  font-size: 0.68rem;
+  line-height: 1;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.trip-conditions-mini .condition-value,
+.trip-conditions-mini .aqi-pill {
+  grid-column: 1 / -1;
+  color: var(--ink);
+  font-family: "Sora", "Instrument Sans", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.trip-conditions-mini .aqi-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: max-content;
+  max-width: 100%;
+  border-radius: 999px;
+  padding: 6px 9px;
+  color: #166534;
+  background: rgba(34, 197, 94, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.18);
+}
+
+.trip-conditions-mini .aqi-pill small,
+.trip-conditions-mini .condition-card small {
+  display: block;
+  color: var(--muted-ink);
+  font-size: 0.68rem;
+  line-height: 1.15;
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+
+.trip-conditions-mini .aqi-pill small {
+  color: #166534;
+  font-size: 0.66rem;
+}
+
+.timeline-stop-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.timeline-stop-context .trip-conditions-mini {
+  margin-top: 0;
+}
+
+.timeline-stop-context .location-classifier {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: var(--teal-deep);
+  background: rgba(204, 251, 241, 0.72);
+  font-size: 0.76rem;
+  font-weight: 950;
 }
 
 .empty-route-map,
@@ -2292,7 +2430,7 @@ textarea {
   margin: 18px 0;
 }
 
-.planner-summary div {
+.planner-summary > dl > div {
   padding: 14px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.58);
@@ -2308,6 +2446,25 @@ textarea {
   margin: 5px 0 0;
   color: var(--ink);
   font-weight: 900;
+}
+
+.planner-summary-conditions {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.planner-summary-conditions .trip-conditions-mini {
+  margin-top: 0;
+}
+
+.condition-panel-caption {
+  color: var(--teal-deep);
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .ai-loading {
@@ -2784,34 +2941,34 @@ textarea {
   }
 
   .mock-map,
-  .safeflow-map {
+  .taithai-map {
     min-height: 330px;
     border-radius: 26px;
   }
 
-  .itinerary-main .safeflow-map {
+  .itinerary-main .taithai-map {
     min-height: 540px;
   }
 
-  .safeflow-map-warning,
-  .safeflow-map-reroute {
+  .taithai-map-warning,
+  .taithai-map-reroute {
     right: 12px;
     max-width: 150px;
   }
 
-  .safeflow-stop-card {
+  .taithai-stop-card {
     left: 12px;
     right: 12px;
     bottom: 72px;
     max-width: none;
   }
 
-  .safeflow-stop-strip {
+  .taithai-stop-strip {
     left: 12px;
     right: 12px;
   }
 
-  .safeflow-map-tray {
+  .taithai-map-tray {
     left: 10px;
     right: 10px;
     bottom: 10px;
@@ -2825,23 +2982,23 @@ textarea {
     pointer-events: auto;
   }
 
-  .safeflow-map-tray.safeflow-map-tray-collapsed {
+  .taithai-map-tray.taithai-map-tray-collapsed {
     display: none;
   }
 
-  .safeflow-map-status-stack {
+  .taithai-map-status-stack {
     top: 12px;
     right: 12px;
     max-width: min(230px, calc(100% - 24px));
   }
 
-  .safeflow-map-collapse-toggle {
+  .taithai-map-collapse-toggle {
     min-height: 38px;
     padding: 8px 10px;
     font-size: 0.74rem;
   }
 
-  .safeflow-sheet-handle {
+  .taithai-sheet-handle {
     display: block;
     width: 52px;
     height: 6px;
@@ -2851,7 +3008,7 @@ textarea {
     background: rgba(15, 23, 42, 0.2);
   }
 
-  .safeflow-route-summary {
+  .taithai-route-summary {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, auto));
     justify-content: center;
@@ -2860,28 +3017,28 @@ textarea {
     background: rgba(236, 253, 245, 0.72);
   }
 
-  .safeflow-map-tray .safeflow-stop-card,
-  .safeflow-map-tray .safeflow-stop-strip {
+  .taithai-map-tray .taithai-stop-card,
+  .taithai-map-tray .taithai-stop-strip {
     display: none;
   }
 
-  .safeflow-map-tray-expanded .safeflow-stop-card {
+  .taithai-map-tray-expanded .taithai-stop-card {
     display: block;
     margin-top: 10px;
     padding: 13px;
     box-shadow: none;
   }
 
-  .safeflow-map-tray-expanded .safeflow-stop-strip {
+  .taithai-map-tray-expanded .taithai-stop-strip {
     display: flex;
     margin-top: 10px;
   }
 
-  .safeflow-map-tray .safeflow-stop-chip {
+  .taithai-map-tray .taithai-stop-chip {
     max-width: 76vw;
   }
 
-  .safeflow-route-rail-next p {
+  .taithai-route-rail-next p {
     display: none;
   }
 
@@ -2899,6 +3056,25 @@ textarea {
   .timeline-content {
     padding: 14px;
     border-radius: 22px;
+  }
+
+  .trip-conditions-mini {
+    width: 100%;
+    justify-content: stretch;
+    margin-left: 0;
+  }
+
+  .condition-card {
+    flex: 1 1 96px;
+  }
+
+  .timeline-stop-context {
+    align-items: stretch;
+  }
+
+  .timeline-stop-context .location-classifier {
+    width: 100%;
+    justify-content: center;
   }
 
   .stop-alternative-card {

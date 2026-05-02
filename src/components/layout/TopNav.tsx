@@ -28,8 +28,8 @@ export function TopNav({ currentPage, onNavigate }: TopNavProps) {
         <button className="brand-mark" onClick={() => go("dashboard")} aria-label="Go to dashboard">
           <span className="brand-icon"><ShieldCheck size={20} /></span>
           <span>
-            <strong>SafeFlow</strong>
-            <small>Thailand</small>
+            <strong>ThaiTAI</strong>
+            <small>Travel intelligence</small>
           </span>
         </button>
 

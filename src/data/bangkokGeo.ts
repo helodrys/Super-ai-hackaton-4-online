@@ -20,8 +20,11 @@ export type EnvironmentSnapshot = {
   lng: number;
   temperatureC: number;
   precipitationProbability: number;
+  aqi: number;
+  aqiLabel: string;
   pm25: number;
   airQuality: "Good" | "Moderate" | "Unhealthy";
+  condition: string;
   weatherRisk: "Low" | "Medium" | "High";
   source: "cached-bangkok-profile" | "open-meteo";
 };
@@ -246,8 +249,11 @@ export function getCachedEnvironment(latInput: unknown, lngInput: unknown): Envi
     lng,
     temperatureC: 33,
     precipitationProbability: Math.min(52, rain),
+    aqi: pm25,
+    aqiLabel: pm25 <= 25 ? "ดี" : pm25 <= 37 ? "ปานกลาง" : "เริ่มมีผล",
     pm25,
     airQuality: pm25 <= 25 ? "Good" : pm25 <= 37 ? "Moderate" : "Unhealthy",
+    condition: rain > 45 ? "Rain nearby" : "Partly cloudy",
     weatherRisk: pm25 > 35 || rain > 45 ? "High" : pm25 > 25 || rain > 30 ? "Medium" : "Low",
     source: "cached-bangkok-profile"
   };

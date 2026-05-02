@@ -4,7 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { ChevronUp, MapPinned, ShieldAlert, Wind } from "lucide-react";
 import type { Coordinates, MapPin, RouteLeg, RouteStop } from "../types";
 
-type SafeFlowMapPanelProps = {
+type ThaiTAIMapPanelProps = {
   pins: MapPin[];
   selectedPin?: string;
   compact?: boolean;
@@ -16,7 +16,7 @@ type SafeFlowMapPanelProps = {
 const BANGKOK_CENTER: Coordinates = { lat: 13.7563, lng: 100.5018 };
 const OPENFREEMAP_STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
 
-export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant = "default", previewCoordinates = [], stops = [] }: SafeFlowMapPanelProps) {
+export function ThaiTAIMapPanel({ pins, selectedPin, compact = false, variant = "default", previewCoordinates = [], stops = [] }: ThaiTAIMapPanelProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const markerRefs = useRef<Marker[]>([]);
@@ -133,13 +133,13 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
       const coordinates = pin.coordinates ?? projectPin(pin);
       const element = document.createElement("button");
       element.type = "button";
-      element.className = `safeflow-map-marker safeflow-map-marker-${pin.type} ${activePinId === pin.id ? "safeflow-map-marker-active" : ""}`;
+      element.className = `taithai-map-marker taithai-map-marker-${pin.type} ${activePinId === pin.id ? "taithai-map-marker-active" : ""}`;
       element.setAttribute("aria-label", `${pin.label}: ${pin.note}`);
       const icon = document.createElement("span");
-      icon.className = "safeflow-map-marker-icon";
+      icon.className = "taithai-map-marker-icon";
       icon.textContent = pin.emoji ?? emojiForPin(pin);
       const order = document.createElement("b");
-      order.className = "safeflow-map-marker-order";
+      order.className = "taithai-map-marker-order";
       order.textContent = String(index + 1);
       element.append(icon, order);
       element.addEventListener("mouseenter", () => setActivePinId(pin.id));
@@ -158,49 +158,49 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
 
   return (
     <section
-      className={`safeflow-map ${compact ? "safeflow-map-compact" : ""} ${variant === "bangkok" ? "safeflow-map-bangkok" : ""}`}
-      aria-label="SafeFlow Bangkok route map"
+      className={`taithai-map ${compact ? "taithai-map-compact" : ""} ${variant === "bangkok" ? "taithai-map-bangkok" : ""}`}
+      aria-label="ThaiTAI Bangkok route map"
     >
-      <div ref={containerRef} className="safeflow-map-canvas" />
-      <div className="map-badge safeflow-map-badge"><MapPinned size={16} /> {routeSourceLabel}</div>
-      <div className="safeflow-map-status-stack">
+      <div ref={containerRef} className="taithai-map-canvas" />
+      <div className="map-badge taithai-map-badge"><MapPinned size={16} /> {routeSourceLabel}</div>
+      <div className="taithai-map-status-stack">
         <button
           type="button"
-          className="safeflow-map-collapse-toggle"
+          className="taithai-map-collapse-toggle"
           aria-expanded={!trayCollapsed}
           onClick={() => setTrayCollapsed((collapsed) => !collapsed)}
         >
           <ChevronUp size={16} />
           {trayCollapsed ? "Show route details" : "Hide route details"}
         </button>
-        <div className="safeflow-map-warning"><Wind size={15} /> PM2.5 watch</div>
-        <div className="safeflow-map-reroute"><ShieldAlert size={15} /> Indoor fallback ready</div>
+        <div className="taithai-map-warning"><Wind size={15} /> PM2.5 watch</div>
+        <div className="taithai-map-reroute"><ShieldAlert size={15} /> Indoor fallback ready</div>
       </div>
-      <div className={`safeflow-map-tray ${sheetExpanded ? "safeflow-map-tray-expanded" : ""} ${trayCollapsed ? "safeflow-map-tray-collapsed" : ""}`} aria-live="polite">
+      <div className={`taithai-map-tray ${sheetExpanded ? "taithai-map-tray-expanded" : ""} ${trayCollapsed ? "taithai-map-tray-collapsed" : ""}`} aria-live="polite">
         <button
           type="button"
-          className="safeflow-sheet-handle"
+          className="taithai-sheet-handle"
           aria-label={sheetExpanded ? "Collapse route sheet" : "Expand route sheet"}
           onClick={() => setSheetExpanded((expanded) => !expanded)}
         />
-        <div className="safeflow-route-summary">
+        <div className="taithai-route-summary">
           <span>{pins.length} stops</span>
           <strong>{formatRouteDistance(routeLegs)} route</strong>
           <em>{formatRouteDuration(routeLegs)}</em>
         </div>
         {activePin && (
-          <article className="safeflow-stop-card" aria-label="Selected stop">
-            <div className="safeflow-stop-card-topline">
-              <span className="safeflow-stop-card-icon">{activePin.emoji ?? emojiForPin(activePin)}</span>
+          <article className="taithai-stop-card" aria-label="Selected stop">
+            <div className="taithai-stop-card-topline">
+              <span className="taithai-stop-card-icon">{activePin.emoji ?? emojiForPin(activePin)}</span>
               <div>
-                <span>{activeStop ? `${activeStop.time} - ${activeStop.type} - ${activeStop.score}/100 fit` : activePin.type}</span>
+                <span>{activeStop ? `${activeStop.time} - ${activeStop.type}` : activePin.type}</span>
                 <strong>{activePin.label}</strong>
               </div>
             </div>
             <p>{activePin.note}</p>
             {activeStop && (
               <>
-                <div className="safeflow-stop-card-tags">
+                <div className="taithai-stop-card-tags">
                   {activeStop.tags.slice(0, 4).map((tag) => <em key={tag}>{tag}</em>)}
                 </div>
                 <RouteTimelineRail stops={stops} activeIndex={activeIndex} legs={routeLegs} />
@@ -208,12 +208,12 @@ export function SafeFlowMapPanel({ pins, selectedPin, compact = false, variant =
             )}
           </article>
         )}
-        <div className="safeflow-stop-strip" aria-label="Route stops">
+        <div className="taithai-stop-strip" aria-label="Route stops">
           {pins.map((pin, index) => (
             <button
               type="button"
               key={pin.id}
-              className={activePinId === pin.id ? "safeflow-stop-chip safeflow-stop-chip-active" : "safeflow-stop-chip"}
+              className={activePinId === pin.id ? "taithai-stop-chip taithai-stop-chip-active" : "taithai-stop-chip"}
               onMouseEnter={() => setActivePinId(pin.id)}
               onClick={() => {
                 setTrayCollapsed(false);
@@ -250,14 +250,14 @@ function RouteTimelineRail({ stops, activeIndex, legs }: { stops: RouteStop[]; a
   }
 
   return (
-    <div className="safeflow-route-rail" aria-label="Selected route timeline">
+    <div className="taithai-route-rail" aria-label="Selected route timeline">
       {previousLeg && (
-        <div className="safeflow-route-rail-leg">
+        <div className="taithai-route-rail-leg">
           <span>{activeIndex} -&gt; {activeIndex + 1}</span>
           <strong>{formatLeg(previousLeg)}</strong>
         </div>
       )}
-      <div className="safeflow-route-rail-stop">
+      <div className="taithai-route-rail-stop">
         <span>{activeIndex + 1}</span>
         <div>
           <strong>{activeStop.name}</strong>
@@ -266,11 +266,11 @@ function RouteTimelineRail({ stops, activeIndex, legs }: { stops: RouteStop[]; a
       </div>
       {nextStop && (
         <>
-          <div className="safeflow-route-rail-leg">
+          <div className="taithai-route-rail-leg">
             <span>{activeIndex + 1} -&gt; {activeIndex + 2}</span>
             <strong>{nextLeg ? formatLeg(nextLeg) : "Distance pending"}</strong>
           </div>
-          <div className="safeflow-route-rail-next">
+          <div className="taithai-route-rail-next">
             <span>Next</span>
             <div>
               <strong>{nextStop.name}</strong>

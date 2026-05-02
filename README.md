@@ -1,6 +1,6 @@
-# TaiThai
+# ThaiTAI
 
-SafeFlow Thailand is a React/Vite travel assistant prototype for Bangkok. It includes:
+ThaiTAI is a React/Vite travel assistant prototype for Bangkok. It includes:
 
 - Dashboard city comfort view
 - Taxi fare, distance, and time prediction
@@ -43,12 +43,12 @@ Start command: npm start
 Environment variables:
 
 ```txt
-SAFEFLOW_ENABLE_TYPHOON=true
+THAITAI_ENABLE_TYPHOON=true
 typhoon_api=your_typhoon_key
 GOOGLE_MAPS_SERVER_KEY=optional_google_key
-SAFEFLOW_ENABLE_LIVE_GOOGLE=false
-SAFEFLOW_ENABLE_LIVE_OPEN_METEO=false
-SAFEFLOW_DISABLE_OSRM=false
+THAITAI_ENABLE_LIVE_GOOGLE=false
+THAITAI_ENABLE_LIVE_OPEN_METEO=false
+THAITAI_DISABLE_OSRM=false
 ```
 
 ## API Routes

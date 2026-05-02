@@ -30,18 +30,13 @@ export const taxiExamples = [
 
 export const thaiPhrases = [
   {
-    thai: "ขอใช้มิเตอร์ได้ไหมครับ/คะ",
-    english: "Can you use the meter?",
-    context: "Use this before starting a taxi ride."
+    thai: "ช่วยเปิดมิเตอร์ได้ไหมครับ/คะ",
+    english: "Could you please turn on the meter?",
+    context: "Use this before the ride starts if the driver quotes a fixed price."
   },
   {
-    thai: "ขอใบเสร็จได้ไหมครับ/คะ",
-    english: "Can I have a receipt?",
-    context: "Use this if you need a record of the fare."
-  },
-  {
-    thai: "ช่วยโทรหาตำรวจท่องเที่ยวให้หน่อยครับ/ค่ะ",
-    english: "Please help me call the tourist police.",
-    context: "Use this if you feel unsafe or threatened."
+    thai: "ไปตามเส้นทางนี้ได้ไหมครับ/คะ",
+    english: "Could we follow this route?",
+    context: "Use this when you want to keep the trip on your planned route."
   }
 ];

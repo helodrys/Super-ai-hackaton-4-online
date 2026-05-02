@@ -10,7 +10,9 @@ import {
   travelVibes
 } from "../../data/plannerOptions";
 import { planTrip } from "../../lib/tripApi";
+import { useTripConditions } from "../../lib/tripConditions";
 import type { PageKey, PlannerRequest, TripPlan } from "../../types";
+import { TripConditionsMini } from "../trip/TripConditionsMini";
 import { BudgetSelector } from "./BudgetSelector";
 import { SelectableOptionCard } from "./SelectableOptionCard";
 
@@ -40,11 +42,14 @@ export function PlannerStepper({ onNavigate, onTripPlanGenerated }: PlannerStepp
     Prompt: ["Outdoor heat"]
   });
   const [budget, setBudget] = useState("Medium");
+  const [customBudget, setCustomBudget] = useState("");
   const [prompt, setPrompt] = useState("I want a calm cultural day with temples, Thai desserts, and not too much walking.");
   const [loading, setLoading] = useState(false);
   const [plannerMessage, setPlannerMessage] = useState("");
   const current = steps[step];
   const progress = ((step + 1) / steps.length) * 100;
+  const activeBudget = customBudget.trim() || budget;
+  const summaryConditions = useTripConditions();
 
   const toggle = (group: string, option: string) => {
     setSelected((currentSelected) => {
@@ -59,7 +64,7 @@ export function PlannerStepper({ onNavigate, onTripPlanGenerated }: PlannerStepp
   const generate = async () => {
     setLoading(true);
     setPlannerMessage("");
-    const request: PlannerRequest = { selected, budget, prompt };
+    const request: PlannerRequest = { selected, budget: activeBudget, prompt };
     const plan = await planTrip(request);
     onTripPlanGenerated(plan);
     setLoading(false);
@@ -92,7 +97,23 @@ export function PlannerStepper({ onNavigate, onTripPlanGenerated }: PlannerStepp
             <span className="panel-label">Step {step + 1} of {steps.length}</span>
             <h1>{current.title}</h1>
             {step === 5 ? (
-              <BudgetSelector selected={budget} onSelect={setBudget} />
+              <>
+                <BudgetSelector
+                  selected={budget}
+                  onSelect={(value) => {
+                    setBudget(value);
+                    setCustomBudget("");
+                  }}
+                />
+                <label className="field prompt-field">
+                  <span>Custom money prompt</span>
+                  <input
+                    value={customBudget}
+                    onChange={(event) => setCustomBudget(event.target.value)}
+                    placeholder="Example: Keep the route under 1,800 THB including food and entries"
+                  />
+                </label>
+              </>
             ) : step === 6 ? (
               <>
                 <div className="option-grid compact-options">
@@ -149,8 +170,12 @@ export function PlannerStepper({ onNavigate, onTripPlanGenerated }: PlannerStepp
           <div><dt>Traveler</dt><dd>{(selected.Traveler ?? []).join(", ")}</dd></div>
           <div><dt>Vibe</dt><dd>{(selected.Vibe ?? []).join(", ")}</dd></div>
           <div><dt>Food</dt><dd>{(selected.Food ?? []).join(", ")}</dd></div>
-          <div><dt>Budget</dt><dd>{budget}</dd></div>
+          <div><dt>Budget</dt><dd>{activeBudget}</dd></div>
         </dl>
+        <div className="planner-summary-conditions">
+          <span className="condition-panel-caption">Bangkok now</span>
+          <TripConditionsMini {...summaryConditions} />
+        </div>
         {loading && (
           <motion.div className="ai-loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Sparkles size={18} />

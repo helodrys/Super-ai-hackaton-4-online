@@ -1,7 +1,7 @@
 import { type Dispatch, type ReactNode, type SetStateAction, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { CarTaxiFront, Clock3, LocateFixed, MapPin, Navigation, Route, Search, ShieldCheck, WalletCards } from "lucide-react";
-import { SafeFlowMapPanel } from "../SafeFlowMapPanel";
+import { ThaiTAIMapPanel } from "../ThaiTAIMapPanel";
 import type { Coordinates, MapPin as RouteMapPin } from "../../types";
 
 type TaxiRoute = {
@@ -138,8 +138,8 @@ export function TaxiCheckForm() {
           fees: Number(fare.fees ?? taxiRoutes[0].fees),
           total: Number(fare.total ?? taxiRoutes[0].total),
           comfort: data?.source === "osrm-openstreetmap"
-            ? "Predicted from OpenStreetMap road geometry, traffic buffer, toll assumptions, and SafeFlow fare math."
-            : "Predicted from Bangkok coordinate distance, traffic buffer, toll assumptions, and SafeFlow fare math.",
+            ? "Predicted from OpenStreetMap road geometry, traffic buffer, toll assumptions, and ThaiTAI fare math."
+            : "Predicted from Bangkok coordinate distance, traffic buffer, toll assumptions, and ThaiTAI fare math.",
           routeNote: `${pickup} -> ${destination}`
         });
         setEstimateSource(data?.source === "osrm-openstreetmap"
@@ -243,7 +243,7 @@ export function TaxiCheckForm() {
               <MapPin size={16} />
               <span>{pickup || "Your location"} to {destination || "Destination"}</span>
             </div>
-            <SafeFlowMapPanel pins={routeMapPins} selectedPin={routeMapPins[0]?.id} variant="bangkok" />
+            <ThaiTAIMapPanel pins={routeMapPins} selectedPin={routeMapPins[0]?.id} variant="bangkok" />
           </div>
         </section>
 

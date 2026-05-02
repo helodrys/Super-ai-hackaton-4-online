@@ -3,11 +3,13 @@ import { CarTaxiFront, CloudRain, Gauge, Map, MapPin, Route, Sparkles, Thermomet
 import { cityConditions } from "../../data/weather";
 import { pageTransition, staggerContainer } from "../../lib/motion";
 import { createMapPinsFromTripPlan } from "../../lib/plannerEngine";
-import { SafeFlowMapPanel } from "../SafeFlowMapPanel";
+import { useTripConditions } from "../../lib/tripConditions";
+import type { PageKey, RouteStop, TripPlan } from "../../types";
+import { ThaiTAIMapPanel } from "../ThaiTAIMapPanel";
+import { TripConditionsMini } from "../trip/TripConditionsMini";
 import { ConditionMetricCard } from "./ConditionMetricCard";
 import { FeatureActionTile } from "./FeatureActionTile";
 import { WeatherHeroCard } from "./WeatherHeroCard";
-import type { PageKey, TripPlan } from "../../types";
 
 type DashboardPageProps = {
   onNavigate: (page: PageKey) => void;
@@ -61,7 +63,7 @@ export function DashboardPage({ onNavigate, latestTripPlan }: DashboardPageProps
           <h2>{latestTripPlan ? "This route feels smoother right now." : "Create a trip plan to unlock your route map."}</h2>
         </div>
         {latestTripPlan ? (
-          <SafeFlowMapPanel pins={pins} selectedPin={pins[2]?.id ?? pins[0]?.id} />
+          <ThaiTAIMapPanel pins={pins} selectedPin={pins[2]?.id ?? pins[0]?.id} />
         ) : (
           <section className="empty-route-map">
             <Sparkles size={28} />
@@ -80,19 +82,7 @@ export function DashboardPage({ onNavigate, latestTripPlan }: DashboardPageProps
           {latestTripPlan ? (
             <div className="travel-plan-list" aria-label="Scrollable travel plan places">
               {latestTripPlan.stops.map((place, index) => (
-                <article className="travel-plan-stop" key={place.placeId}>
-                  <div className="travel-plan-index">{index + 1}</div>
-                  <div>
-                    <span>{place.time}</span>
-                    <h3>{place.name}</h3>
-                    <p>{place.reason}</p>
-                    <div className="travel-plan-meta">
-                      <em><MapPin size={13} /> {place.type}</em>
-                      <em>{place.score}/100 fit</em>
-                      <em>{place.estimatedCost} THB</em>
-                    </div>
-                  </div>
-                </article>
+                <TravelPlanStopCard key={place.placeId} place={place} index={index} />
               ))}
             </div>
           ) : (
@@ -104,5 +94,24 @@ export function DashboardPage({ onNavigate, latestTripPlan }: DashboardPageProps
         </section>
       </aside>
     </motion.div>
+  );
+}
+
+function TravelPlanStopCard({ place, index }: { place: RouteStop; index: number }) {
+  const conditions = useTripConditions(place.coordinates);
+
+  return (
+    <article className="travel-plan-stop">
+      <div className="travel-plan-index">{index + 1}</div>
+      <div className="travel-plan-stop-body">
+        <span>{place.time}</span>
+        <h3>{place.name}</h3>
+        <p>{place.reason}</p>
+        <div className="travel-plan-meta">
+          <em><MapPin size={13} /> {place.type}</em>
+        </div>
+        <TripConditionsMini {...conditions} />
+      </div>
+    </article>
   );
 }

@@ -30,11 +30,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, ".", "");
   const typhoonApiKey = env.typhoon_api || env.TYPHOON_API || env.OPENTYPHOON_API_KEY;
   const typhoonModel = env.TYPHOON_MODEL || TYPHOON_MODEL;
-  const typhoonEnabled = env.SAFEFLOW_ENABLE_TYPHOON === "true" && Boolean(typhoonApiKey);
+  const typhoonEnabled = env.THAITAI_ENABLE_TYPHOON === "true" && Boolean(typhoonApiKey);
   const googleApiKey = env.GOOGLE_MAPS_SERVER_KEY || env.GOOGLE_API_KEY;
-  const liveGoogleEnabled = env.SAFEFLOW_ENABLE_LIVE_GOOGLE === "true" && Boolean(googleApiKey);
-  const liveOpenMeteoEnabled = env.SAFEFLOW_ENABLE_LIVE_OPEN_METEO === "true";
-  const osrmEnabled = env.SAFEFLOW_DISABLE_OSRM !== "true";
+  const liveGoogleEnabled = env.THAITAI_ENABLE_LIVE_GOOGLE === "true" && Boolean(googleApiKey);
+  const liveOpenMeteoEnabled = env.THAITAI_ENABLE_LIVE_OPEN_METEO !== "false";
+  const osrmEnabled = env.THAITAI_DISABLE_OSRM !== "true";
 
   return {
     plugins: [
@@ -430,8 +430,8 @@ async function getOpenMeteoEnvironment(lat: string | null, lng: string | null) {
 
   try {
     const [forecastResponse, airResponse] = await Promise.all([
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,precipitation_probability`),
-      fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=pm2_5`)
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&hourly=precipitation_probability&forecast_days=1&timezone=auto`),
+      fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=us_aqi,pm2_5`)
     ]);
 
     if (!forecastResponse.ok || !airResponse.ok) {
@@ -441,22 +441,66 @@ async function getOpenMeteoEnvironment(lat: string | null, lng: string | null) {
     const forecast = await forecastResponse.json();
     const air = await airResponse.json();
     const temperatureC = Math.round(Number(forecast.current?.temperature_2m ?? 33));
-    const precipitationProbability = Math.round(Number(forecast.current?.precipitation_probability ?? 24));
+    const precipitationProbability = nearestHourlyValue(forecast.hourly?.time, forecast.hourly?.precipitation_probability, 24);
+    const weatherCode = Math.round(Number(forecast.current?.weather_code ?? 2));
     const pm25 = Math.round(Number(air.current?.pm2_5 ?? 30));
+    const aqi = Math.round(Number(air.current?.us_aqi ?? pm25));
 
     return {
       lat: latitude,
       lng: longitude,
       temperatureC,
       precipitationProbability,
+      aqi,
+      aqiLabel: labelForAqi(aqi),
       pm25,
       airQuality: pm25 <= 25 ? "Good" : pm25 <= 37 ? "Moderate" : "Unhealthy",
+      condition: conditionForWeatherCode(weatherCode),
       weatherRisk: pm25 > 35 || precipitationProbability > 45 ? "High" : pm25 > 25 || precipitationProbability > 30 ? "Medium" : "Low",
       source: "open-meteo"
     };
   } catch {
     return null;
   }
+}
+
+function nearestHourlyValue(times: unknown, values: unknown, fallback: number) {
+  if (!Array.isArray(times) || !Array.isArray(values) || !times.length || times.length !== values.length) {
+    return fallback;
+  }
+
+  const now = Date.now();
+  let bestIndex = 0;
+  let bestDistance = Number.POSITIVE_INFINITY;
+
+  times.forEach((time, index) => {
+    const parsed = typeof time === "string" ? Date.parse(time) : Number.NaN;
+    const distance = Math.abs(parsed - now);
+    if (Number.isFinite(distance) && distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = index;
+    }
+  });
+
+  const value = Number(values[bestIndex]);
+  return Number.isFinite(value) ? Math.round(value) : fallback;
+}
+
+function labelForAqi(aqi: number) {
+  if (aqi <= 50) return "ดี";
+  if (aqi <= 100) return "ปานกลาง";
+  if (aqi <= 150) return "เริ่มมีผล";
+  return "ไม่ดี";
+}
+
+function conditionForWeatherCode(code: number) {
+  if ([0, 1].includes(code)) return "Clear sky";
+  if ([2, 3].includes(code)) return "Partly cloudy";
+  if ([45, 48].includes(code)) return "Hazy";
+  if ([51, 53, 55, 56, 57].includes(code)) return "Light drizzle";
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "Rain nearby";
+  if ([95, 96, 99].includes(code)) return "Thunderstorm";
+  return "Partly cloudy";
 }
 
 function parseWaypoints(body: Record<string, unknown>) {

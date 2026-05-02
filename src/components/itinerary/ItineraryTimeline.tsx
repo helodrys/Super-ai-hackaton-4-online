@@ -2,7 +2,9 @@ import { motion } from "framer-motion";
 import { ChevronDown, Route } from "lucide-react";
 import { useState } from "react";
 import { revealItem, staggerContainer } from "../../lib/motion";
-import type { Coordinates, StopAlternative, TripPlan } from "../../types";
+import { useTripConditions } from "../../lib/tripConditions";
+import type { Coordinates, RouteStop, StopAlternative, TripPlan } from "../../types";
+import { TripConditionsMini } from "../trip/TripConditionsMini";
 
 type ItineraryTimelineProps = {
   plan: TripPlan;
@@ -17,41 +19,14 @@ export function ItineraryTimeline({ plan, onPreviewAlternative }: ItineraryTimel
       {plan.stops.map((stop, index) => {
         const expanded = expandedStopId === stop.placeId;
         return (
-          <motion.article key={stop.placeId} className="timeline-stop" variants={revealItem}>
-            <div className="timeline-number">{stop.emoji ?? index + 1}</div>
-            <div className="timeline-content">
-              <button
-                type="button"
-                className="timeline-stop-toggle"
-                aria-expanded={expanded}
-                onClick={() => toggleStop(stop.placeId)}
-              >
-                <div>
-                  <span>{stop.time} - {stop.type} - {stop.score}/100 fit</span>
-                  <h3>{index + 1}. {stop.name}</h3>
-                </div>
-                <ChevronDown size={18} />
-              </button>
-              <p>{stop.reason}</p>
-              <div className="tag-row">
-                {stop.tags.map((tag) => <em key={tag}>{tag}</em>)}
-              </div>
-              <p className="timeline-fit-note">{stop.vibeMatch} {stop.budgetFit}</p>
-              <small>{stop.comfortNote} Est. {stop.estimatedCost} THB</small>
-              {expanded && (
-                <div className="stop-alternative-list">
-                  {(stop.alternatives ?? []).map((alternative) => (
-                    <AlternativeCard
-                      key={alternative.placeId}
-                      stopCoordinates={stop.coordinates}
-                      alternative={alternative}
-                      onPreviewAlternative={onPreviewAlternative}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </motion.article>
+          <ItineraryStopCard
+            key={stop.placeId}
+            stop={stop}
+            index={index}
+            expanded={expanded}
+            onToggle={() => toggleStop(stop.placeId)}
+            onPreviewAlternative={onPreviewAlternative}
+          />
         );
       })}
     </motion.section>
@@ -66,6 +41,64 @@ export function ItineraryTimeline({ plan, onPreviewAlternative }: ItineraryTimel
       return next;
     });
   }
+}
+
+function ItineraryStopCard({
+  stop,
+  index,
+  expanded,
+  onToggle,
+  onPreviewAlternative
+}: {
+  stop: RouteStop;
+  index: number;
+  expanded: boolean;
+  onToggle: () => void;
+  onPreviewAlternative?: (coordinates: Coordinates[]) => void;
+}) {
+  const conditions = useTripConditions(stop.coordinates);
+
+  return (
+    <motion.article className="timeline-stop" variants={revealItem}>
+      <div className="timeline-number">{stop.emoji ?? index + 1}</div>
+      <div className="timeline-content">
+        <button
+          type="button"
+          className="timeline-stop-toggle"
+          aria-expanded={expanded}
+          onClick={onToggle}
+        >
+          <div>
+            <span>{stop.time} - {stop.type}</span>
+            <h3>{index + 1}. {stop.name}</h3>
+          </div>
+          <ChevronDown size={18} />
+        </button>
+        <p>{stop.reason}</p>
+        <div className="tag-row">
+          {stop.tags.map((tag) => <em key={tag}>{tag}</em>)}
+        </div>
+        <div className="timeline-stop-context">
+          <span className="location-classifier">{stop.type}</span>
+          <TripConditionsMini {...conditions} />
+        </div>
+        <p className="timeline-fit-note">{stop.vibeMatch}</p>
+        <small>{stop.comfortNote}</small>
+        {expanded && (
+          <div className="stop-alternative-list">
+            {(stop.alternatives ?? []).map((alternative) => (
+              <AlternativeCard
+                key={alternative.placeId}
+                stopCoordinates={stop.coordinates}
+                alternative={alternative}
+                onPreviewAlternative={onPreviewAlternative}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.article>
+  );
 }
 
 function AlternativeCard({ stopCoordinates, alternative, onPreviewAlternative }: {
